@@ -731,7 +731,7 @@ class Window(pyglet.window.Window):
         if symbol not in self.pressed:
             self.pressed.append(symbol)
         print("ADD", self.pressed)
-        self.on_key_press_old(symbol,modifiers):
+        self.on_key_press_old(symbol,modifiers)
     def on_key_release(self, symbol, modifiers):
         """ Called when the player releases a key. See pyglet docs for key
         mappings.
@@ -749,7 +749,7 @@ class Window(pyglet.window.Window):
         except:
             print("***ERROR: SYMBOL %s not found."%symbol)
         print("REM", self.pressed)
-        self.on_key_release_old(symbol,modifiers):
+        self.on_key_release_old(symbol,modifiers)
     def on_key_press_old(self, symbol, modifiers):
         """ Called when the player presses a key. See pyglet docs for key
         mappings.
@@ -935,7 +935,7 @@ def setup():
 
 
 def main():
-    window = Window(width=800, height=600, caption='Pyglet-Minecraft',
+    window = Window(width=800, height=600, caption='Pyglet - Minecraft',
                     resizable=True)
     # Hide the mouse cursor and prevent the mouse from leaving the window.
     window.set_exclusive_mouse(True)
