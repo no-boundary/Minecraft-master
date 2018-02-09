@@ -446,6 +446,8 @@ class Window(pyglet.window.Window):
         # Whether or not the window exclusively captures the mouse.
         self.exclusive = False
 
+        # Keys pressed stored in list.
+        self.pressed = []
         # When flying gravity has no effect and speed is increased.
         self.flying = False
 
@@ -585,6 +587,7 @@ class Window(pyglet.window.Window):
             self.sector = sector
         m = 8
         dt = min(dt, 0.2)
+        
         for _ in xrange(m):
             self._update(dt / m)
 
@@ -713,8 +716,41 @@ class Window(pyglet.window.Window):
             x, y = x + dx * m, y + dy * m
             y = max(-90, min(90, y))
             self.rotation = (x, y)
-
     def on_key_press(self, symbol, modifiers):
+        """ Called when the player presses a key. See pyglet docs for key
+        mappings.
+
+        Parameters
+        ----------
+        symbol : int
+            Number representing the key that was pressed.
+        modifiers : int
+            Number representing any modifying keys that were pressed.
+
+        """
+        if symbol not in self.pressed:
+            self.pressed.append(symbol)
+        print("ADD", self.pressed)
+        self.on_key_press_old(symbol,modifiers):
+    def on_key_release(self, symbol, modifiers):
+        """ Called when the player releases a key. See pyglet docs for key
+        mappings.
+
+        Parameters
+        ----------
+        symbol : int
+            Number representing the key that was pressed.
+        modifiers : int
+            Number representing any modifying keys that were pressed.
+
+        """
+        try:
+            self.pressed.remove(symbol)
+        except:
+            print("***ERROR: SYMBOL %s not found."%symbol)
+        print("REM", self.pressed)
+        self.on_key_release_old(symbol,modifiers):
+    def on_key_press_old(self, symbol, modifiers):
         """ Called when the player presses a key. See pyglet docs for key
         mappings.
 
@@ -747,7 +783,7 @@ class Window(pyglet.window.Window):
             index = (symbol - self.num_keys[0]) % len(self.inventory)
             self.block = self.inventory[index]
 
-    def on_key_release(self, symbol, modifiers):
+    def on_key_release_old(self, symbol, modifiers):
         """ Called when the player releases a key. See pyglet docs for key
         mappings.
 
